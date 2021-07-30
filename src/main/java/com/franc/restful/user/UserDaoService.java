@@ -40,7 +40,7 @@ public class UserDaoService {
         if(user.getId() == null)
             user.setId(++userCount);
 
-        user.setJoinDate(new Date());
+        //user.setJoinDate(new Date());
         users.add(user);
         return user;
     }
