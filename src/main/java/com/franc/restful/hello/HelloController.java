@@ -12,7 +12,7 @@ import java.util.Locale;
 @RequiredArgsConstructor
 public class HelloController {
 
-    // 로케일 프로퍼티에 접근할 수 있는 인터페이스 (messages)
+    // 국제화를 제공하는 인터페이스 (messages로 시작하는 프로퍼티들을 Bundle로 인식.)
     private final MessageSource messageSource;
 
     /**
