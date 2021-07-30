@@ -12,6 +12,7 @@ import java.util.Date;
 
 @Getter @Setter
 @ToString
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @JsonFilter("UserInfo")
