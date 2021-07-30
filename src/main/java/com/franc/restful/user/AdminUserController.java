@@ -40,7 +40,10 @@ public class AdminUserController {
         return mapping;
     }
 
-    @GetMapping("/admin/v1/users/{id}")
+    //@GetMapping("/admin/v1/users/{id}")
+    //@GetMapping(value = "/admin/users/{id}", params = "version=1") // Request Param을 통한 Version 분리 [/admin/users/1/?version=1]
+    //@GetMapping(value = "/admin/users/{id}", headers = "X-API-VERSION=1") // Header를 통한 Version 관리
+    @GetMapping(value = "/admin/users/{id}", produces = "application/vnd.company.appv1+json") // MIME 타입을 통한 Version 관리
     public MappingJacksonValue retrieveUserV1(@PathVariable int id) {
         User user = userDaoService.findOne(id);
 
@@ -65,7 +68,10 @@ public class AdminUserController {
     }
 
 
-    @GetMapping("/admin/v2/users/{id}")
+    //@GetMapping("/admin/v2/users/{id}")
+    //@GetMapping(value = "/admin/users/{id}", params = "version=2") // Request Param을 통한 Version 분리 [/admin/users/1/?version=2]
+    //@GetMapping(value = "/admin/users/{id}", headers = "X-API-VERSION=2") // Header를 통한 Version 관리
+    @GetMapping(value = "/admin/users/{id}", produces = "application/vnd.company.appv2+json") // MIME 타입을 통한 Version 관리
     public MappingJacksonValue retrieveUserV2(@PathVariable int id) {
         User user = userDaoService.findOne(id);
 
