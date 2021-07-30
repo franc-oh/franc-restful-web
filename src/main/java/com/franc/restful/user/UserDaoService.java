@@ -13,9 +13,9 @@ public class UserDaoService {
     private static List<User> users = new ArrayList<>();
 
     static {
-        users.add(User.builder().id(1).name("Mike").joinDate(new Date()).build());
-        users.add(User.builder().id(2).name("Tom").joinDate(new Date()).build());
-        users.add(User.builder().id(3).name("Jack").joinDate(new Date()).build());
+        users.add(User.builder().id(1).name("Mike").joinDate(new Date()).password("pass1").ssn("701010-1111111").build());
+        users.add(User.builder().id(2).name("Tom").joinDate(new Date()).password("pass2").ssn("890301-2111111").build());
+        users.add(User.builder().id(3).name("Jack").joinDate(new Date()).password("pass3").ssn("901212-1111111").build());
         userCount = 3;
     }
 
