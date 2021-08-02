@@ -2,6 +2,8 @@ package com.franc.restful.user;
 
 import com.franc.restful.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -9,6 +11,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,16 +28,27 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public User retrieveUser(@PathVariable int id) {
-        User one = userDaoService.findOne(id);
+    public EntityModel<User> retrieveUser(@PathVariable int id) {
+        User user = userDaoService.findOne(id);
 
         // 통신 예외처리[1] -- null 대신 예외를 던져본다. (예외 클래스 작성)
-        if(one == null) {
+        if(user == null) {
             // 통신 예외처리[2] -- 사용자정의로 Exception(Handler) 구현
             throw new UserNotFoundException(String.format("ID[%s] not found", id));
         }
 
-        return one;
+        // HATEOAS 적용
+        EntityModel<User> entityModel = EntityModel.of(user);
+
+        // 추가정보 등록 (retrieveAllUsers)
+        WebMvcLinkBuilder linkBuilder = linkTo(methodOn(this.getClass()).retrieveAllUsers());
+
+        // entityModel에 추가정보 add (all-users)
+        entityModel.add(linkBuilder.withRel("all-users"));
+
+
+
+        return entityModel;
     }
 
     @PostMapping("/users")

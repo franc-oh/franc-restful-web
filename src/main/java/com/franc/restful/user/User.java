@@ -15,7 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@JsonFilter("UserInfo")
+//@JsonFilter("UserInfo")
 public class User {
 
     private Integer id;
